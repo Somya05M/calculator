@@ -36,7 +36,14 @@ pipeline {
             }
         }
 
-   stage('Run Ansible Playbook') {
+        stage('Run Tests') {
+            steps {
+                // Run the compiled test cases
+                sh 'docker run ${DOCKER_IMAGE_NAME}'
+            }
+        }
+
+        stage('Run Ansible Playbook') {
             steps {
                 script {
                     ansiblePlaybook(
