@@ -31,7 +31,7 @@ RUN apt-get update && apt-get install -y \
 
 # Copy only the built executables from the builder stage
 COPY --from=builder /app/build/calculator_main /app/calculator_main
-COPY --from=builder /app/build /app/calculator_test
+COPY --from=builder /app/build/calculator_test /app/calculator_test
 
 # Set execute permission for the calculator_test executable
 RUN chmod a+x /app/calculator_test
