@@ -16,13 +16,6 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                // Run the compiled test cases
-                sh 'docker run ${DOCKER_IMAGE_NAME}'
-            }
-        }
-        
         stage('Build Docker Image') {
             steps {
                 script {
@@ -40,6 +33,13 @@ pipeline {
                     sh 'docker push somya2001/calculator'
                     }
                  }
+            }
+        }
+
+        stage('Run Tests') {
+            steps {
+                // Run the compiled test cases
+                sh 'docker run ${DOCKER_IMAGE_NAME}'
             }
         }
 
