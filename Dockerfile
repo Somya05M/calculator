@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
     libcppunit-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy CMakeLists.txt and source files into the container
+# Copy only the necessary source files into the container
 COPY CMakeLists.txt /app/CMakeLists.txt
 COPY calculator_impl.cpp /app/calculator_impl.cpp
 COPY test.cpp /app/test.cpp
@@ -19,7 +19,7 @@ COPY calculator.h /app/calculator.h
 WORKDIR /app
 
 # Build the C++ code using CMake
-RUN cmake . && make
+RUN mkdir build && cd build && cmake .. && make
 
 # Final stage
 FROM ubuntu:latest
@@ -30,8 +30,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy only the built executables from the builder stage
-COPY --from=builder /app/test /app/test
-COPY --from=builder /app/calculator /app/calculator
+COPY --from=builder /app/build/calculator_main /app/calculator_main
+COPY --from=builder /app/build /app/calculator_test
 
 # Set the working directory
 WORKDIR /app
