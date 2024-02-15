@@ -33,6 +33,9 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /app/build/calculator_main /app/calculator_main
 COPY --from=builder /app/build /app/calculator_test
 
+# Set execute permission for the calculator_test executable
+RUN chmod +x /app/calculator_test
+
 # Set the working directory
 WORKDIR /app
 
