@@ -34,7 +34,7 @@ COPY --from=builder /app/build/calculator_main /app/calculator_main
 COPY --from=builder /app/build /app/calculator_test
 
 # Set execute permission for the calculator_test executable
-RUN chmod +x /app/calculator_test
+RUN chmod a+x /app/calculator_test
 
 # Set the working directory
 WORKDIR /app
