@@ -25,6 +25,13 @@ pipeline {
             }
         }
 
+        stage('Run Tests') {
+            steps {
+                // Run the compiled test cases
+                sh 'docker run ${DOCKER_IMAGE_NAME}'
+            }
+        }
+        
         stage('Push Docker Images') {
             steps {
                 script{
@@ -36,12 +43,7 @@ pipeline {
             }
         }
 
-        stage('Run Tests') {
-            steps {
-                // Run the compiled test cases
-                sh 'docker run ${DOCKER_IMAGE_NAME}'
-            }
-        }
+        
 
         stage('Run Ansible Playbook') {
             steps {
