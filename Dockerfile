@@ -37,4 +37,4 @@ COPY --from=builder /app/build /app/calculator_test
 WORKDIR /app
 
 # Run the test cases by default
-CMD ["./test"]
+CMD ["./calculator_test"]
