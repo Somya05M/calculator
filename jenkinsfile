@@ -30,7 +30,7 @@ pipeline {
                 // Run the tests using the locally built Docker image
                 script {
                     docker.image("${DOCKER_IMAGE_NAME}").inside {
-                        sh './calculator_test'
+                        sh 'cd /app && ./calculator_test'
                     }
                 }
             }
