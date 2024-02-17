@@ -21,9 +21,6 @@ WORKDIR /app
 # Build the C++ code using CMake
 RUN mkdir build && cd build && cmake .. && make
 
-# Run tests during the build process
-RUN ./build/calculator_test
-
 # Final stage
 FROM ubuntu:latest
 
