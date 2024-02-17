@@ -40,4 +40,4 @@ RUN chmod a+x /app/calculator_test
 WORKDIR /app
 
 # Run the test cases and keep the container running
-CMD ["./calculator_test && tail -f /dev/null"]
+CMD ["./calculator_test"]
