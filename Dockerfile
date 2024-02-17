@@ -42,5 +42,5 @@ RUN chmod a+x /app/calculator_test /app/calculator_main
 # Set the working directory
 WORKDIR /app
 
-# Start the container without any default command
-CMD [./calculator_test]
+# Start the container with the specified command
+CMD ["./calculator_test"]
