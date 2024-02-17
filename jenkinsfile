@@ -27,22 +27,23 @@ pipeline {
 
         stage('Run Tests') {
             steps {
-                // Pull the Docker image from DockerHub
-                sh 'docker pull somya2001/calculator:latest'
-                
-                // Run the tests using the pulled image
-                sh 'docker run somya2001/calculator:latest'
+                // Run the tests using the locally built Docker image
+                script {
+                    docker.image("${DOCKER_IMAGE_NAME}").inside {
+                        sh './calculator_test'
+                    }
+                }
             }
         }
 
         stage('Push Docker Images') {
             steps {
-                script{
+                script {
                     docker.withRegistry('', 'DockerHubCred') {
-                    sh 'docker tag calculator somya2001/calculator:latest'
-                    sh 'docker push somya2001/calculator'
+                        sh 'docker tag calculator somya2001/calculator:latest'
+                        sh 'docker push somya2001/calculator'
                     }
-                 }
+                }
             }
         }
 
@@ -52,10 +53,9 @@ pipeline {
                     ansiblePlaybook(
                         playbook: 'deploy.yml',
                         inventory: 'inventory'
-                     )
+                    )
                 }
             }
         }
-
     }
 }

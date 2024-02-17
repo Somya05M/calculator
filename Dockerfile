@@ -21,6 +21,9 @@ WORKDIR /app
 # Build the C++ code using CMake
 RUN mkdir build && cd build && cmake .. && make
 
+# Run tests during the build process
+RUN ./build/calculator_test
+
 # Final stage
 FROM ubuntu:latest
 
@@ -33,11 +36,11 @@ RUN apt-get update && apt-get install -y \
 COPY --from=builder /app/build/calculator_main /app/calculator_main
 COPY --from=builder /app/build/calculator_test /app/calculator_test
 
-# Set execute permission for the calculator_test executable
-RUN chmod a+x /app/calculator_test
+# Set execute permission for the calculator_test and calculator_main executables
+RUN chmod a+x /app/calculator_test /app/calculator_main
 
 # Set the working directory
 WORKDIR /app
 
-# Run the test cases and keep the container running
-CMD ["./calculator_test"]
+# Start the container without any default command
+CMD [./calculator_test]
